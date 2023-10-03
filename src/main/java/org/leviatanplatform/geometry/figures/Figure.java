@@ -9,5 +9,5 @@ package org.leviatanplatform.geometry.figures;
 public interface Figure {
 
     /** Prints information about the Figure. */
-    public void printInfo();
+    void printInfo();
 }
