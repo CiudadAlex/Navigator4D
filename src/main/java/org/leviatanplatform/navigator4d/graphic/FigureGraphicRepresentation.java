@@ -1,6 +1,7 @@
 package org.leviatanplatform.navigator4d.graphic;
 
-import org.leviatanplatform.geometry.figures.EdgesFigure;
+import org.leviatanplatform.geometry.entities.EuclideanSpace;
+import org.leviatanplatform.geometry.projections.ProjectivePlane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,11 +10,13 @@ public class FigureGraphicRepresentation {
 
     private JFrame frame;
     private JPanel canvas;
-    private EdgesFigure edgesFigure;
+    private ProjectivePlane projectivePlane;
+    private EuclideanSpace euclideanSpace;
 
-    public void show(EdgesFigure edgesFigure) {
+    public void show(ProjectivePlane projectivePlane, EuclideanSpace euclideanSpace) {
 
-        this.edgesFigure = edgesFigure;
+        this.projectivePlane = projectivePlane;
+        this.euclideanSpace = euclideanSpace;
 
         if (frame == null) {
 
@@ -41,7 +44,7 @@ public class FigureGraphicRepresentation {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                FigureGraphicRepresentationUtils.paintCurrentListOfStars(g, edgesFigure, getWidth(), getHeight());
+                FigureGraphicRepresentationUtils.paintCurrentListOfStars(g, projectivePlane, euclideanSpace, getWidth(), getHeight());
             }
         };
     }
