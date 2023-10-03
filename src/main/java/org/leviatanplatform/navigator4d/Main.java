@@ -34,6 +34,7 @@ public class Main {
         FigureGraphicRepresentation figureGraphicRepresentation = new FigureGraphicRepresentation(projectivePlane, euclideanSpace);
         figureGraphicRepresentation.show();
 
-        // FIXME finish
+        // FIXME finish (leyend to know the keyboard shortcuts)
+        // FIXME keys to change figures
     }
 }
