@@ -10,7 +10,7 @@ import org.leviatanplatform.geometry.entities.Vector;
  */
 public class HyperCube4D extends HyperCubeND {
 
-    public HyperCube4D(final Vector pointCenter, final double sideLenght) {
-        super(pointCenter, sideLenght, 4, 4);
+    public HyperCube4D(final Vector pointCenter, final double sideLength) {
+        super(pointCenter, sideLength, 4, 4);
     }
 }

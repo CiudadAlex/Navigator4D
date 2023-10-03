@@ -16,14 +16,14 @@ import org.leviatanplatform.geometry.util.Calculator;
 public class HyperCubeND extends EdgesFigure {
 
     private final Vector pointCenter;
-    private final double sideLenght;
+    private final double sideLength;
     private final List<Segment> listSegment;
 
-    public HyperCubeND(final Vector pointCenter, final double sideLenght, final int dimensionHyperCube,
+    public HyperCubeND(final Vector pointCenter, final double sideLength, final int dimensionHyperCube,
             final int dimensionEnvironment) {
         this.pointCenter = pointCenter;
-        this.sideLenght = sideLenght;
-        this.listSegment = buildHyperCube(dimensionHyperCube, dimensionEnvironment, pointCenter, sideLenght);
+        this.sideLength = sideLength;
+        this.listSegment = buildHyperCube(dimensionHyperCube, dimensionEnvironment, pointCenter, sideLength);
     }
 
     private List<Segment> buildHyperCube(final int dimensionHyperCube, final int dimensionEnvironment,
@@ -130,8 +130,8 @@ public class HyperCubeND extends EdgesFigure {
         return pointCenter;
     }
 
-    public double getSideLenght() {
-        return sideLenght;
+    public double getSideLength() {
+        return sideLength;
     }
 
     @Override
