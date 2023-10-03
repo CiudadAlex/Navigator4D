@@ -8,8 +8,8 @@ import java.awt.event.KeyEvent;
 
 public class CommandListener extends KeyAdapter {
 
-    private ProjectivePlane projectivePlane;
-    private JPanel canvas;
+    private final ProjectivePlane projectivePlane;
+    private final JPanel canvas;
 
     public CommandListener(ProjectivePlane projectivePlane, JPanel canvas) {
         this.projectivePlane = projectivePlane;
@@ -18,14 +18,28 @@ public class CommandListener extends KeyAdapter {
 
     public void keyPressed(KeyEvent e) {
 
-        // FIXME more rotations in other keys
-
         int keyCode = e.getKeyCode();
         switch (keyCode) {
-            case KeyEvent.VK_UP -> projectivePlane.approach(0.0001);
-            case KeyEvent.VK_DOWN -> projectivePlane.approach(-0.0001);
-            case KeyEvent.VK_LEFT -> projectivePlane.rotate(3, 1, 0.01);
-            case KeyEvent.VK_RIGHT -> projectivePlane.rotate(3, 1, -0.01);
+            case KeyEvent.VK_UP -> projectivePlane.approach(-0.0001);
+            case KeyEvent.VK_DOWN -> projectivePlane.approach(0.0001);
+
+            case KeyEvent.VK_LEFT -> rot01(0.01);
+            case KeyEvent.VK_RIGHT -> rot01(-0.01);
+
+            case KeyEvent.VK_1 -> rot02(0.01);
+            case KeyEvent.VK_Q -> rot02(-0.01);
+
+            case KeyEvent.VK_2 -> rot03(0.01);
+            case KeyEvent.VK_W -> rot03(-0.01);
+
+            case KeyEvent.VK_3 -> rot12(0.01);
+            case KeyEvent.VK_E -> rot12(-0.01);
+
+            case KeyEvent.VK_4 -> rot13(0.01);
+            case KeyEvent.VK_R -> rot13(-0.01);
+
+            case KeyEvent.VK_5 -> rot23(0.01);
+            case KeyEvent.VK_T -> rot23(-0.01);
         }
 
         SwingUtilities.invokeLater(() -> {
@@ -33,5 +47,29 @@ public class CommandListener extends KeyAdapter {
             canvas.validate();
             canvas.repaint();
         });
+    }
+
+    private void rot01(double angle) {
+        projectivePlane.rotate(0, 1, angle);
+    }
+
+    private void rot02(double angle) {
+        projectivePlane.rotate(0, 2, angle);
+    }
+
+    private void rot03(double angle) {
+        projectivePlane.rotate(0, 3, angle);
+    }
+
+    private void rot12(double angle) {
+        projectivePlane.rotate(1, 2, angle);
+    }
+
+    private void rot13(double angle) {
+        projectivePlane.rotate(1, 3, angle);
+    }
+
+    private void rot23(double angle) {
+        projectivePlane.rotate(2, 3, angle);
     }
 }
