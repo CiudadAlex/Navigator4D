@@ -31,8 +31,6 @@ public class FigureGraphicRepresentationUtils {
 
     private static void drawSegment2D(final Graphics g, final Segment2D segment2D, int width, int height) {
 
-        // FIXME finish
-
         final Pixel pixelInitial = translateIntoPixel(segment2D.getPointInitial(), width, height);
         final Pixel pixelFinal = translateIntoPixel(segment2D.getPointFinal(), width, height);
 

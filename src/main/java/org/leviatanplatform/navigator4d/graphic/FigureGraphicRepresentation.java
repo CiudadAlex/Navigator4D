@@ -10,23 +10,27 @@ public class FigureGraphicRepresentation {
 
     private JFrame frame;
     private JPanel canvas;
-    private ProjectivePlane projectivePlane;
-    private EuclideanSpace euclideanSpace;
+    private final ProjectivePlane projectivePlane;
+    private final EuclideanSpace euclideanSpace;
 
-    public void show(ProjectivePlane projectivePlane, EuclideanSpace euclideanSpace) {
-
+    public FigureGraphicRepresentation(ProjectivePlane projectivePlane, EuclideanSpace euclideanSpace) {
         this.projectivePlane = projectivePlane;
         this.euclideanSpace = euclideanSpace;
+    }
+
+    public void show() {
 
         if (frame == null) {
+
+            canvas = createCanvas();
 
             frame = new JFrame("Navigator 4D");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1600, 900);
             frame.setVisible(true);
             frame.setResizable(false);
+            frame.addKeyListener(new CommandListener(projectivePlane, canvas));
 
-            canvas = createCanvas();
             frame.add(canvas);
         }
 
