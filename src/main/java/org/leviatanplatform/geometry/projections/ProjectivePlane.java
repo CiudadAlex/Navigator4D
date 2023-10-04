@@ -45,6 +45,14 @@ public abstract class ProjectivePlane {
     public abstract void rotate(int dimension1, int dimension2, double angle);
 
     /**
+     * Translates.
+     *
+     * @param dimension dimension
+     * @param amount amount
+     */
+    public abstract void translate(final int dimension, final double amount);
+
+    /**
      * Approaches.
      * 
      * @param amount

@@ -60,6 +60,16 @@ public class IsometricProjectivePlane extends ProjectivePlane {
     }
 
     @Override
+    public void translate(final int dimension, final double amount) {
+
+        Vector vector = Vector.unitary(4, dimension);
+        final Vector advance = Calculator.multiply(vector, amount);
+
+        this.v1 = Calculator.add(this.v1, advance);
+        this.v2 = Calculator.add(this.v2, advance);
+    }
+
+    @Override
     public void approach(final double amount) {
 
         double scale = 1;

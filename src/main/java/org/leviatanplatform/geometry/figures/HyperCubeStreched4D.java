@@ -24,10 +24,10 @@ public class HyperCubeStreched4D extends EdgesFigure {
         this.sideLong = sideLong;
         this.dimensionLong = dimensionLong;
 
-        final Vector vectorZero4D = new Vector(new double[] { 0, 0, 0, 0 });
+        final Vector vectorZero4D = Vector.zero(4);
         final HyperCube4D hyperCube4D = new HyperCube4D(vectorZero4D, sideShort);
 
-        listSegment = new ArrayList<Segment>();
+        listSegment = new ArrayList<>();
         final List<Segment> listSegmentHyperCube = hyperCube4D.getListSegment();
 
         for (final Segment segmentHyperCube : listSegmentHyperCube) {

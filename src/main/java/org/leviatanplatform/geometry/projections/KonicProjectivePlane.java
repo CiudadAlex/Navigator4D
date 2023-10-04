@@ -55,6 +55,16 @@ public class KonicProjectivePlane extends ProjectivePlane {
     }
 
     @Override
+    public void translate(final int dimension, final double amount) {
+
+        Vector vector = Vector.unitary(4, dimension);
+        final Vector advance = Calculator.multiply(vector, amount);
+        this.camera = Calculator.add(this.camera, advance);
+
+        System.out.println(camera);
+    }
+
+    @Override
     public void approach(final double amount) {
 
         final Vector advance = Calculator.multiply(this.cameraToScreen, amount);

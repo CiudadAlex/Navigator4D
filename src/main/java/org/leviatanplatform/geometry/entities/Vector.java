@@ -151,4 +151,28 @@ public class Vector {
 
         return sb.toString();
     }
+
+    public static Vector zero(int numDimensions) {
+
+        final double[] arrayDouble = new double[numDimensions];
+
+        for (int i = 0; i < numDimensions; i++) {
+            arrayDouble[i] = 0;
+        }
+
+        return new Vector(arrayDouble);
+    }
+
+    public static Vector unitary(int numDimensions, int dimension) {
+
+        final double[] arrayDouble = new double[numDimensions];
+
+        for (int i = 0; i < numDimensions; i++) {
+            arrayDouble[i] = 0;
+        }
+
+        arrayDouble[dimension] = 1;
+
+        return new Vector(arrayDouble);
+    }
 }
