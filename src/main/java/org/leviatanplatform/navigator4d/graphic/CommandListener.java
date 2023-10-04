@@ -1,19 +1,55 @@
 package org.leviatanplatform.navigator4d.graphic;
 
+import org.leviatanplatform.geometry.entities.EuclideanSpace;
+import org.leviatanplatform.geometry.entities.Vector;
+import org.leviatanplatform.geometry.figures.*;
 import org.leviatanplatform.geometry.projections.ProjectivePlane;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class CommandListener extends KeyAdapter {
 
     private final ProjectivePlane projectivePlane;
+    private final EuclideanSpace euclideanSpace;
     private final JPanel canvas;
+    private List<EdgesFigure> figures = buildListEdgesFigure();
+    private Integer indexFigure;
 
-    public CommandListener(ProjectivePlane projectivePlane, JPanel canvas) {
+    public CommandListener(ProjectivePlane projectivePlane, EuclideanSpace euclideanSpace, JPanel canvas) {
         this.projectivePlane = projectivePlane;
+        this.euclideanSpace = euclideanSpace;
         this.canvas = canvas;
+    }
+
+    private void changeFigure(boolean next) {
+        EdgesFigure figure = next ? nextFigure() : previousFigure();
+        euclideanSpace.getListOfEdgesFigures().clear();
+        euclideanSpace.getListOfEdgesFigures().add(figure);
+    }
+
+    private EdgesFigure nextFigure() {
+        indexFigure = indexFigure == null ? 0 : ( indexFigure + 1 ) % figures.size();
+        return figures.get(indexFigure);
+    }
+
+    private EdgesFigure previousFigure() {
+        indexFigure = indexFigure == null || indexFigure == 0 ? figures.size() - 1 : indexFigure - 1;
+        return figures.get(0);
+    }
+
+    private List<EdgesFigure> buildListEdgesFigure() {
+
+        Vector pointCenter = Vector.zero(4);
+        HyperCube4D hyperCube4D = new HyperCube4D(pointCenter, 1);
+        Tetrahedron4D tetrahedron4D = new Tetrahedron4D(1);
+        HyperTetrahedron4D hyperTetrahedron4D = new HyperTetrahedron4D(1);
+        Cube4D cube4D = new Cube4D(pointCenter, 1);
+        HyperCubeStreched4D hyperCubeStreched4D = new HyperCubeStreched4D(1, 2, 1);
+
+        return List.of(hyperCube4D, tetrahedron4D, hyperTetrahedron4D, cube4D, hyperCubeStreched4D);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -52,6 +88,9 @@ public class CommandListener extends KeyAdapter {
 
             case KeyEvent.VK_F -> trans3(0.01);
             case KeyEvent.VK_V -> trans3(-0.01);
+
+            case KeyEvent.VK_N -> changeFigure(false);
+            case KeyEvent.VK_M -> changeFigure(true);
         }
 
         SwingUtilities.invokeLater(() -> {

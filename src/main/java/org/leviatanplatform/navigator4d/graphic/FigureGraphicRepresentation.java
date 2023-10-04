@@ -29,7 +29,7 @@ public class FigureGraphicRepresentation {
             frame.setSize(1600, 900);
             frame.setVisible(true);
             frame.setResizable(false);
-            frame.addKeyListener(new CommandListener(projectivePlane, canvas));
+            frame.addKeyListener(new CommandListener(projectivePlane, euclideanSpace, canvas));
 
             frame.add(canvas);
         }
