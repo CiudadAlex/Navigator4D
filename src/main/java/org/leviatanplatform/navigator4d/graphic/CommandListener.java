@@ -40,6 +40,18 @@ public class CommandListener extends KeyAdapter {
 
             case KeyEvent.VK_5 -> rot23(0.01);
             case KeyEvent.VK_T -> rot23(-0.01);
+
+            case KeyEvent.VK_A -> trans0(0.01);
+            case KeyEvent.VK_Z -> trans0(-0.01);
+
+            case KeyEvent.VK_S -> trans1(0.01);
+            case KeyEvent.VK_X -> trans1(-0.01);
+
+            case KeyEvent.VK_D -> trans2(0.01);
+            case KeyEvent.VK_C -> trans2(-0.01);
+
+            case KeyEvent.VK_F -> trans3(0.01);
+            case KeyEvent.VK_V -> trans3(-0.01);
         }
 
         SwingUtilities.invokeLater(() -> {
@@ -47,6 +59,22 @@ public class CommandListener extends KeyAdapter {
             canvas.validate();
             canvas.repaint();
         });
+    }
+
+    private void trans0(double amount) {
+        projectivePlane.translate(0, amount);
+    }
+
+    private void trans1(double amount) {
+        projectivePlane.translate(1, amount);
+    }
+
+    private void trans2(double amount) {
+        projectivePlane.translate(2, amount);
+    }
+
+    private void trans3(double amount) {
+        projectivePlane.translate(3, amount);
     }
 
     private void rot01(double angle) {
