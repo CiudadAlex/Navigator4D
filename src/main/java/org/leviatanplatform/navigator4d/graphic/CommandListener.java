@@ -3,6 +3,8 @@ package org.leviatanplatform.navigator4d.graphic;
 import org.leviatanplatform.geometry.entities.EuclideanSpace;
 import org.leviatanplatform.geometry.entities.Vector;
 import org.leviatanplatform.geometry.figures.*;
+import org.leviatanplatform.geometry.projections.IsometricProjectivePlane;
+import org.leviatanplatform.geometry.projections.KonicProjectivePlane;
 import org.leviatanplatform.geometry.projections.ProjectivePlane;
 
 import javax.swing.*;
@@ -12,11 +14,11 @@ import java.util.List;
 
 public class CommandListener extends KeyAdapter {
 
-    private final ProjectivePlane projectivePlane;
+    private ProjectivePlane projectivePlane;
     private final EuclideanSpace euclideanSpace;
     private final JPanel canvas;
-    private List<EdgesFigure> figures = buildListEdgesFigure();
-    private Integer indexFigure;
+    private CyclicIterator<EdgesFigure> figures = new CyclicIterator<>(buildListEdgesFigure());
+    private CyclicIterator<ProjectivePlane> projectivePlanes = new CyclicIterator<>(buildListProjectivePlane());
 
     public CommandListener(ProjectivePlane projectivePlane, EuclideanSpace euclideanSpace, JPanel canvas) {
         this.projectivePlane = projectivePlane;
@@ -24,20 +26,14 @@ public class CommandListener extends KeyAdapter {
         this.canvas = canvas;
     }
 
+    private void changeProjectivePlane(boolean next) {
+        this.projectivePlane = projectivePlanes.newOne(next);
+    }
+
     private void changeFigure(boolean next) {
-        EdgesFigure figure = next ? nextFigure() : previousFigure();
+        EdgesFigure figure = figures.newOne(next);
         euclideanSpace.getListOfEdgesFigures().clear();
         euclideanSpace.getListOfEdgesFigures().add(figure);
-    }
-
-    private EdgesFigure nextFigure() {
-        indexFigure = indexFigure == null ? 0 : ( indexFigure + 1 ) % figures.size();
-        return figures.get(indexFigure);
-    }
-
-    private EdgesFigure previousFigure() {
-        indexFigure = indexFigure == null || indexFigure == 0 ? figures.size() - 1 : indexFigure - 1;
-        return figures.get(0);
     }
 
     private List<EdgesFigure> buildListEdgesFigure() {
@@ -50,6 +46,20 @@ public class CommandListener extends KeyAdapter {
         HyperCubeStreched4D hyperCubeStreched4D = new HyperCubeStreched4D(1, 2, 1);
 
         return List.of(hyperCube4D, tetrahedron4D, hyperTetrahedron4D, cube4D, hyperCubeStreched4D);
+    }
+
+    private List<ProjectivePlane> buildListProjectivePlane() {
+
+        final Vector camera = new Vector(new double[] { 0, 0, 0, 2 });
+        final Vector cameraToScreen = new Vector(new double[] { 0, 0, 0, 100 });
+        final Vector screenX = Vector.unitary(4, 0);
+        final Vector screenY = Vector.unitary(4, 1);
+        final Vector screenZ = Vector.unitary(4, 2);
+
+        KonicProjectivePlane konicProjectivePlane = new KonicProjectivePlane(camera, cameraToScreen, screenX, screenY,  screenZ);
+        IsometricProjectivePlane isometricProjectivePlane = new IsometricProjectivePlane(screenX, screenY);
+
+        return List.of(konicProjectivePlane, isometricProjectivePlane);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -91,6 +101,9 @@ public class CommandListener extends KeyAdapter {
 
             case KeyEvent.VK_N -> changeFigure(false);
             case KeyEvent.VK_M -> changeFigure(true);
+
+            case KeyEvent.VK_H -> changeProjectivePlane(false);
+            case KeyEvent.VK_J -> changeProjectivePlane(true);
         }
 
         SwingUtilities.invokeLater(() -> {
