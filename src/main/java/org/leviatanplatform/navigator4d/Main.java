@@ -6,6 +6,7 @@ import org.leviatanplatform.geometry.figures.*;
 import org.leviatanplatform.geometry.projections.KonicProjectivePlane;
 import org.leviatanplatform.geometry.projections.ProjectivePlane;
 import org.leviatanplatform.navigator4d.graphic.FigureGraphicRepresentation;
+import org.leviatanplatform.navigator4d.graphic.ObjectWrapper;
 
 public class Main {
 
@@ -25,9 +26,11 @@ public class Main {
         EuclideanSpace euclideanSpace = new EuclideanSpace();
         euclideanSpace.getListOfEdgesFigures().add(figure);
 
-        FigureGraphicRepresentation figureGraphicRepresentation = new FigureGraphicRepresentation(projectivePlane, euclideanSpace);
+        FigureGraphicRepresentation figureGraphicRepresentation =
+                new FigureGraphicRepresentation(new ObjectWrapper<>(projectivePlane), euclideanSpace);
         figureGraphicRepresentation.show();
 
         // FIXME finish (leyend to know the keyboard shortcuts)
+        // FIXME isometric
     }
 }

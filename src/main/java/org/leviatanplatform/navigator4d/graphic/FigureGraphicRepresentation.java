@@ -10,10 +10,10 @@ public class FigureGraphicRepresentation {
 
     private JFrame frame;
     private JPanel canvas;
-    private final ProjectivePlane projectivePlane;
+    private final ObjectWrapper<ProjectivePlane> projectivePlane;
     private final EuclideanSpace euclideanSpace;
 
-    public FigureGraphicRepresentation(ProjectivePlane projectivePlane, EuclideanSpace euclideanSpace) {
+    public FigureGraphicRepresentation(ObjectWrapper<ProjectivePlane> projectivePlane, EuclideanSpace euclideanSpace) {
         this.projectivePlane = projectivePlane;
         this.euclideanSpace = euclideanSpace;
     }
@@ -48,7 +48,7 @@ public class FigureGraphicRepresentation {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                FigureGraphicRepresentationUtils.paintCurrentListOfStars(g, projectivePlane, euclideanSpace, getWidth(), getHeight());
+                FigureGraphicRepresentationUtils.paintCurrentListOfStars(g, projectivePlane.get(), euclideanSpace, getWidth(), getHeight());
             }
         };
     }

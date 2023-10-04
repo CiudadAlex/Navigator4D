@@ -14,20 +14,20 @@ import java.util.List;
 
 public class CommandListener extends KeyAdapter {
 
-    private ProjectivePlane projectivePlane;
+    private ObjectWrapper<ProjectivePlane> projectivePlane;
     private final EuclideanSpace euclideanSpace;
     private final JPanel canvas;
     private CyclicIterator<EdgesFigure> figures = new CyclicIterator<>(buildListEdgesFigure());
     private CyclicIterator<ProjectivePlane> projectivePlanes = new CyclicIterator<>(buildListProjectivePlane());
 
-    public CommandListener(ProjectivePlane projectivePlane, EuclideanSpace euclideanSpace, JPanel canvas) {
+    public CommandListener(ObjectWrapper<ProjectivePlane> projectivePlane, EuclideanSpace euclideanSpace, JPanel canvas) {
         this.projectivePlane = projectivePlane;
         this.euclideanSpace = euclideanSpace;
         this.canvas = canvas;
     }
 
     private void changeProjectivePlane(boolean next) {
-        this.projectivePlane = projectivePlanes.newOne(next);
+        this.projectivePlane.set(projectivePlanes.newOne(next));
     }
 
     private void changeFigure(boolean next) {
@@ -66,8 +66,8 @@ public class CommandListener extends KeyAdapter {
 
         int keyCode = e.getKeyCode();
         switch (keyCode) {
-            case KeyEvent.VK_UP -> projectivePlane.approach(-0.0001);
-            case KeyEvent.VK_DOWN -> projectivePlane.approach(0.0001);
+            case KeyEvent.VK_UP -> projectivePlane.get().approach(-0.0001);
+            case KeyEvent.VK_DOWN -> projectivePlane.get().approach(0.0001);
 
             case KeyEvent.VK_LEFT -> rot01(0.01);
             case KeyEvent.VK_RIGHT -> rot01(-0.01);
@@ -114,42 +114,42 @@ public class CommandListener extends KeyAdapter {
     }
 
     private void trans0(double amount) {
-        projectivePlane.translate(0, amount);
+        projectivePlane.get().translate(0, amount);
     }
 
     private void trans1(double amount) {
-        projectivePlane.translate(1, amount);
+        projectivePlane.get().translate(1, amount);
     }
 
     private void trans2(double amount) {
-        projectivePlane.translate(2, amount);
+        projectivePlane.get().translate(2, amount);
     }
 
     private void trans3(double amount) {
-        projectivePlane.translate(3, amount);
+        projectivePlane.get().translate(3, amount);
     }
 
     private void rot01(double angle) {
-        projectivePlane.rotate(0, 1, angle);
+        projectivePlane.get().rotate(0, 1, angle);
     }
 
     private void rot02(double angle) {
-        projectivePlane.rotate(0, 2, angle);
+        projectivePlane.get().rotate(0, 2, angle);
     }
 
     private void rot03(double angle) {
-        projectivePlane.rotate(0, 3, angle);
+        projectivePlane.get().rotate(0, 3, angle);
     }
 
     private void rot12(double angle) {
-        projectivePlane.rotate(1, 2, angle);
+        projectivePlane.get().rotate(1, 2, angle);
     }
 
     private void rot13(double angle) {
-        projectivePlane.rotate(1, 3, angle);
+        projectivePlane.get().rotate(1, 3, angle);
     }
 
     private void rot23(double angle) {
-        projectivePlane.rotate(2, 3, angle);
+        projectivePlane.get().rotate(2, 3, angle);
     }
 }
