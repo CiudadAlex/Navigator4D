@@ -14,11 +14,12 @@ import java.util.List;
 
 public class CommandListener extends KeyAdapter {
 
-    private ObjectWrapper<ProjectivePlane> projectivePlane;
+    private final ObjectWrapper<ProjectivePlane> projectivePlane;
     private final EuclideanSpace euclideanSpace;
     private final JPanel canvas;
-    private CyclicIterator<EdgesFigure> figures = new CyclicIterator<>(buildListEdgesFigure());
-    private CyclicIterator<ProjectivePlane> projectivePlanes = new CyclicIterator<>(buildListProjectivePlane());
+    private final CyclicIterator<EdgesFigure> figuresKonic = new CyclicIterator<>(buildListEdgesFigure(1));
+    private final CyclicIterator<EdgesFigure> figuresIsometric = new CyclicIterator<>(buildListEdgesFigure(200));
+    private final CyclicIterator<ProjectivePlane> projectivePlanes = new CyclicIterator<>(buildListProjectivePlane());
 
     public CommandListener(ObjectWrapper<ProjectivePlane> projectivePlane, EuclideanSpace euclideanSpace, JPanel canvas) {
         this.projectivePlane = projectivePlane;
@@ -28,22 +29,26 @@ public class CommandListener extends KeyAdapter {
 
     private void changeProjectivePlane(boolean next) {
         this.projectivePlane.set(projectivePlanes.newOne(next));
+        changeFigure(true);
     }
 
     private void changeFigure(boolean next) {
-        EdgesFigure figure = figures.newOne(next);
+
+        boolean isKonic = projectivePlane.get() instanceof KonicProjectivePlane;
+
+        EdgesFigure figure = isKonic ? figuresKonic.newOne(next) : figuresIsometric.newOne(next);
         euclideanSpace.getListOfEdgesFigures().clear();
         euclideanSpace.getListOfEdgesFigures().add(figure);
     }
 
-    private List<EdgesFigure> buildListEdgesFigure() {
+    private List<EdgesFigure> buildListEdgesFigure(int factor) {
 
         Vector pointCenter = Vector.zero(4);
-        HyperCube4D hyperCube4D = new HyperCube4D(pointCenter, 1);
-        Tetrahedron4D tetrahedron4D = new Tetrahedron4D(1);
-        HyperTetrahedron4D hyperTetrahedron4D = new HyperTetrahedron4D(1);
-        Cube4D cube4D = new Cube4D(pointCenter, 1);
-        HyperCubeStreched4D hyperCubeStreched4D = new HyperCubeStreched4D(1, 2, 1);
+        HyperCube4D hyperCube4D = new HyperCube4D(pointCenter, factor);
+        Tetrahedron4D tetrahedron4D = new Tetrahedron4D(factor);
+        HyperTetrahedron4D hyperTetrahedron4D = new HyperTetrahedron4D(factor);
+        Cube4D cube4D = new Cube4D(pointCenter, factor);
+        HyperCubeStreched4D hyperCubeStreched4D = new HyperCubeStreched4D(factor, 2 * factor, 1);
 
         return List.of(hyperCube4D, tetrahedron4D, hyperTetrahedron4D, cube4D, hyperCubeStreched4D);
     }
