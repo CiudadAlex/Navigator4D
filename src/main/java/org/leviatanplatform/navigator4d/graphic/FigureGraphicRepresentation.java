@@ -24,7 +24,7 @@ public class FigureGraphicRepresentation {
 
             canvas = createCanvas();
 
-            frame = new JFrame("Navigator 4D");
+            frame = new JFrame("Navigator 4D: Rotations (1-6,Q-Y) Translations (A-F,Z-V) Figure (N,M) Projection (H,J)");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1600, 900);
             frame.setVisible(true);

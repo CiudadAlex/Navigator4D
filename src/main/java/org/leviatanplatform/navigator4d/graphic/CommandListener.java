@@ -69,23 +69,23 @@ public class CommandListener extends KeyAdapter {
             case KeyEvent.VK_UP -> projectivePlane.get().approach(-0.0001);
             case KeyEvent.VK_DOWN -> projectivePlane.get().approach(0.0001);
 
-            case KeyEvent.VK_LEFT -> rot01(0.01);
-            case KeyEvent.VK_RIGHT -> rot01(-0.01);
+            case KeyEvent.VK_1, KeyEvent.VK_LEFT -> rot01(0.01);
+            case KeyEvent.VK_Q, KeyEvent.VK_RIGHT -> rot01(-0.01);
 
-            case KeyEvent.VK_1 -> rot02(0.01);
-            case KeyEvent.VK_Q -> rot02(-0.01);
+            case KeyEvent.VK_2 -> rot02(0.01);
+            case KeyEvent.VK_W -> rot02(-0.01);
 
-            case KeyEvent.VK_2 -> rot03(0.01);
-            case KeyEvent.VK_W -> rot03(-0.01);
+            case KeyEvent.VK_3 -> rot03(0.01);
+            case KeyEvent.VK_E -> rot03(-0.01);
 
-            case KeyEvent.VK_3 -> rot12(0.01);
-            case KeyEvent.VK_E -> rot12(-0.01);
+            case KeyEvent.VK_4 -> rot12(0.01);
+            case KeyEvent.VK_R -> rot12(-0.01);
 
-            case KeyEvent.VK_4 -> rot13(0.01);
-            case KeyEvent.VK_R -> rot13(-0.01);
+            case KeyEvent.VK_5 -> rot13(0.01);
+            case KeyEvent.VK_T -> rot13(-0.01);
 
-            case KeyEvent.VK_5 -> rot23(0.01);
-            case KeyEvent.VK_T -> rot23(-0.01);
+            case KeyEvent.VK_6 -> rot23(0.01);
+            case KeyEvent.VK_Y -> rot23(-0.01);
 
             case KeyEvent.VK_A -> trans0(0.01);
             case KeyEvent.VK_Z -> trans0(-0.01);
