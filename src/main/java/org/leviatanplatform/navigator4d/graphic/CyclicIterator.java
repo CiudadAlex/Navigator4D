@@ -18,7 +18,7 @@ public class CyclicIterator<T> {
 
     private T previousItem() {
         index = index == null || index == 0 ? listItems.size() - 1 : index - 1;
-        return listItems.get(0);
+        return listItems.get(index);
     }
 
     public T newOne(boolean next) {
